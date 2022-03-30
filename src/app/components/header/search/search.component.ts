@@ -9,9 +9,11 @@ import SearchService from 'src/app/shared/services/search.service';
 export default class SearchComponent {
   constructor(private searchService: SearchService) {}
 
-  searchSubmit(search: string): void {
-    if (search) {
-      this.searchService.getSearchResult(search);
+  searchSubmit(search: HTMLInputElement): void {
+    const input = search;
+    if (search.value) {
+      this.searchService.getSearchResult(input.value);
+      input.value = '';
     }
   }
 }

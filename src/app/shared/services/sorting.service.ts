@@ -58,7 +58,9 @@ export default class SortingService {
 
   filterSearchItem(): SearchItem[] {
     const searchResult = this.searchService.result;
-    return this.filterName
+    console.log('searchResult', this.filterName);
+    console.log('searchResult', searchResult);
+    return this.filterName.length > 0
       ? searchResult.filter(
         (item) => item.snippet.title.toLowerCase().includes(this.filterName.toLowerCase()),
       )

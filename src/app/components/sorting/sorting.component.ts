@@ -18,7 +18,8 @@ export default class SortingComponent {
     this.sortingService.setSortFieldAndAsc(sortField, sortAsc);
   }
 
-  byWordorting(result: string) {
-    this.sortingService.setFilterName(result);
+  byWordorting(input: HTMLInputElement): void {
+    const value = input.value as string;
+    this.sortingService.setFilterName(value);
   }
 }

@@ -29,8 +29,6 @@ export default class SearchResultComponent implements OnInit {
       this.searchResult = this.sortingService.sortSearchItem();
     }
 
-    if (this.sortingService.filterName) {
-      this.searchResult = this.sortingService.filterSearchItem();
-    }
+    this.searchResult = this.sortingService.filterSearchItem();
   }
 }

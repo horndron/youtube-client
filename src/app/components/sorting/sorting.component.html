@@ -3,8 +3,8 @@
     <span>Sorting by:</span>
     <button class="sort btn" data-sort="publishedAt" (click)="sorting($event)">Date</button>
     <button class="sort btn" data-sort="viewCount" (click)="sorting($event)">Count of views</button>
-    <button class="sort" (click)="byWordorting(textFilter.value)">by word or sentance</button>
-    <input type="text" #textFilter (keyup.enter)="byWordorting(textFilter.value)">
+    <button class="sort" (click)="byWordorting(textFilter)">by word or sentance</button>
+    <input type="text" #textFilter (keyup.enter)="byWordorting(textFilter)">
   </div>
 </div>
 
