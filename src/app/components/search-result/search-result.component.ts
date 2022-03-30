@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchItem } from 'src/app/models/video-card.model';
+import SearchService from 'src/app/shared/services/search.service';
 
 @Component({
   selector: 'app-search-result',
@@ -6,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-result.component.sass'],
 })
 export default class SearchResultComponent implements OnInit {
-  constructor() { }
+  searchResult: SearchItem[] = [];
 
-  ngOnInit(): void {
+  constructor(private searchService: SearchService) {}
+
+  ngOnInit() {
+    this.searchService.searchResult$.subscribe((result) => {
+      this.searchResult = result;
+    });
   }
 }

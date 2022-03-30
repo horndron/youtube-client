@@ -1,0 +1,9 @@
+<img src="{{ card.snippet.thumbnails.medium.url }}" alt="">
+
+<app-video-card-statistic [statistics]="card.statistics"></app-video-card-statistic>
+
+<h2>{{ card.snippet.title }}</h2>
+
+<a [href]="getCurrentVideoUrl()" class="btn-blue" target="_blank">More</a>
+<div class="publishing-color" appDatePublishingAgo [publishedAt]="card.snippet.publishedAt"></div>
+

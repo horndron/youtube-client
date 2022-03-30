@@ -1,0 +1,29 @@
+:host
+  display: inline-block
+  width: 100%
+  background-color: #dcdcdc
+
+
+  .sort-container
+    display: block
+    max-width: 570px
+    margin: 0 auto
+    padding-bottom: 15px
+
+    .sort
+      color: #2f80ec
+      border: none
+      background: none
+      cursor: pointer
+      transition: 0.5s
+
+      &:hover
+        text-decoration: underline
+
+    .btn
+      &::after
+        content: '↓'
+        margin-left: 2px
+
+      &.name-desc::after
+        content: '↑'

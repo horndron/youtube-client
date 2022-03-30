@@ -1,4 +1,4 @@
-export interface Statistic {
+export interface Statistics {
   viewCount: number;
   likeCount: number;
   dislikeCount: number;
@@ -42,4 +42,5 @@ export interface SearchItem {
   etag: string;
   id: string;
   snippet: SnippetItem;
+  statistics: Statistics;
 }

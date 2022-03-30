@@ -1,1 +1,8 @@
-<p>header works!</p>
+<div class="container d-flex fx-wrap jc-space-b ai-center">
+  <div class="search-panel d-flex fx-wrap ai-center">
+    <img src="../../../assets/logo.svg" alt="" class="logo">
+    <app-search></app-search>
+    <img src="../../../assets/search_settings.svg" alt="" class="sort-filter" (click)="toggleFiltersVisible()">
+  </div>
+  <app-login></app-login>
+</div>
