@@ -1,12 +1,5 @@
-import {
-  Component, EventEmitter, Input, Output,
-} from '@angular/core';
-import { SearchItem } from 'src/app/models/video-card.model';
-
-// enum Sorting {
-//   date = 'publishedAt',
-//   views = 'viewCount',
-// }
+import { Component } from '@angular/core';
+import SortingService from 'src/app/shared/services/sorting.service';
 
 @Component({
   selector: 'app-sorting',
@@ -14,12 +7,18 @@ import { SearchItem } from 'src/app/models/video-card.model';
   styleUrls: ['./sorting.component.sass'],
 })
 export default class SortingComponent {
-  @Input() basicCards: SearchItem[] = [];
+  constructor(private sortingService: SortingService) {}
 
-  @Output() sortedCards: EventEmitter<SearchItem[]> = new EventEmitter();
+  sorting(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const sortField = target.dataset['sort'] as string;
+    target.classList.toggle('desc');
+    const sortAsc = !target.classList.contains('desc');
 
-  // eslint-disable-next-line class-methods-use-this
+    this.sortingService.setSortFieldAndAsc(sortField, sortAsc);
+  }
+
   byWordorting(result: string) {
-    console.log(result);
+    this.sortingService.setFilterName(result);
   }
 }

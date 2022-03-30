@@ -10,6 +10,8 @@ import { SearchResponse } from '../../models/search-response.model';
 export default class SearchService {
   private urlAPI = 'https://raw.githubusercontent.com/horndron/image-data/master/response.json';
 
+  result: SearchItem[] = [];
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -24,6 +26,7 @@ export default class SearchService {
     console.log(search);
     this.http.get<SearchResponse>(this.urlAPI)
       .subscribe((searchResult) => {
+        this.result = searchResult.items;
         this.searchResult$.next(searchResult.items);
       });
   }

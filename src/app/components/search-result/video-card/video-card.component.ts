@@ -9,7 +9,7 @@ import { SearchItem } from 'src/app/models/video-card.model';
 export default class VideoCardComponent {
   @Input() card!: SearchItem;
 
-  urlYouTube = 'https://youtu.be';
+  private urlYouTube = 'https://youtu.be';
 
   getCurrentVideoUrl(): string {
     return `${this.urlYouTube}/${this.card.id}`;
