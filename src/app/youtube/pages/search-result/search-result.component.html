@@ -1,0 +1,10 @@
+<div class="container d-grid" *ngIf="searchResult.length; else noData">
+    <app-video-card *ngFor="let card of searchResult" [card]="card"></app-video-card>
+</div>
+<ng-template #noData>
+  <div class="container">
+    <span>No data available. Please enter your query in the search.</span>
+  </div>
+</ng-template>
+
+

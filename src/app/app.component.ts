@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SearchItem } from './models/video-card.model';
-import SearchService from './shared/services/search.service';
+// import { SearchItem } from './models/video-card.model';
+// import SearchService from './shared/services/search.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +10,9 @@ import SearchService from './shared/services/search.service';
 export default class AppComponent {
   filters: boolean = false;
 
-  searchResult: SearchItem[] = [];
+  // searchResult: SearchItem[] = [];
 
-  constructor(private searchService: SearchService) { }
+  // constructor(private searchService: SearchService) { }
 
   viewFilters() {
     this.filters = !this.filters;
