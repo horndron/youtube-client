@@ -29,6 +29,8 @@ export default class SearchResultComponent implements OnInit, OnDestroy {
     this.sortingService.sorting$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.sortingOrFilteringResult());
+
+    this.searchResult = this.searchService.result;
   }
 
   ngOnDestroy(): void {
