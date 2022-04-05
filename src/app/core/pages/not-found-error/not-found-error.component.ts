@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-not-found-error',
   templateUrl: './not-found-error.component.html',
-  styleUrls: ['./not-found-error.component.sass']
+  styleUrls: ['./not-found-error.component.sass'],
 })
-export class NotFoundErrorComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export default class NotFoundErrorComponent {
 }

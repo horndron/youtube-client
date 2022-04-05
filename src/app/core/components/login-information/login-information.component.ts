@@ -1,14 +1,44 @@
-import { Component } from '@angular/core';
+import {
+  Component, OnDestroy, OnInit,
+} from '@angular/core';
+import { takeUntil, Subject } from 'rxjs';
+import AuthService from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login-information.component.html',
   styleUrls: ['./login-information.component.sass'],
 })
-export default class LoginInformationComponent {
+export default class LoginInformationComponent implements OnInit, OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   userName = '';
 
-  login() {
-    alert(`${this.userName} Is login form in future`);
+  constructor(
+    private authService: AuthService,
+  ) {}
+
+  ngOnInit() {
+    this.authService.authSubject$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        this.userName = result;
+      });
+
+    if (localStorage.getItem('login')) {
+      this.authService.login(localStorage.getItem('login') as string);
+    } else {
+      this.authService.logout();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.userName = '';
   }
 }

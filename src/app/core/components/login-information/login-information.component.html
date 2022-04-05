@@ -1,4 +1,5 @@
 <p *ngIf="userName">{{ userName }}</p>
-<button (click)="login()">
+<button >
   <img src="../../../assets/login.svg" alt="">
 </button>
+<button class="btn"*ngIf="userName" (click)="logout()">Logout</button>

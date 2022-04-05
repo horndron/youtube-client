@@ -1,1 +1,12 @@
-<p>menu works!</p>
+<button class="menu-toggle" [ngClass]="{ 'active': status }" (click)="status = !status"></button>
+
+<nav class="navbar">
+  <ul (click)="toogleMenu($event)">
+    <li>
+      <a routerLink="main">Main</a>
+    </li>
+    <li>
+      <a routerLink="login">Login</a>
+    </li>
+  </ul>
+</nav>

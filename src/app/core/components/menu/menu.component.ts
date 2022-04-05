@@ -5,4 +5,13 @@ import { Component } from '@angular/core';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.sass'],
 })
-export default class MenuComponent { }
+export default class MenuComponent {
+  status = false;
+
+  toogleMenu(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target.tagName === 'A') {
+      this.status = false;
+    }
+  }
+}

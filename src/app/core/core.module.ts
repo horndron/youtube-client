@@ -4,9 +4,9 @@ import SearchComponent from './components/search/search.component';
 import SortingComponent from './components/sorting/sorting.component';
 import HeaderComponent from './components/header/header.component';
 import SharedModule from '../shared/shared.module';
-import { FooterComponent } from './components/footer/footer.component';
+import FooterComponent from './components/footer/footer.component';
 import MenuComponent from './components/menu/menu.component';
-import { NotFoundErrorComponent } from './pages/not-found-error/not-found-error.component';
+import NotFoundErrorComponent from './pages/not-found-error/not-found-error.component';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SearchItem } from '../../../models/video-card.model';
+import { SearchItem } from '../../models/video-card.model';
 
 @Component({
   selector: 'app-video-card',
