@@ -41,7 +41,7 @@ export default class AuthService {
     localStorage.setItem('authToken', AuthService.generateToken(32));
     localStorage.setItem('login', username);
     this.isAuth = true;
-    this.router.navigate(['/main'], {});
+    this.router.navigate([''], {});
     this.authSubject$.next(username);
     // });
   }

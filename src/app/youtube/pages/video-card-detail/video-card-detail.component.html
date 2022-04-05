@@ -1,1 +1,28 @@
-<p>video-card-detail works!</p>
+<div class="container d-flex ai-center jc-center">
+  <div *ngIf="card; else notFound" class="card_container d-flex fx-wrap">
+    <button class="btn" (click)="back()">
+      <img src="/assets/back_button.svg" alt="back">
+    </button>
+    <div class="card_video d-flex fx-wrap">
+      <img class="card_video__image" src="{{ card.snippet.thumbnails.maxres.url }}" alt="">
+      <div class="description d-flex fx-wrap">
+        <h1>{{ card.snippet.title }}</h1>
+        <p class="date">{{ card.snippet.publishedAt | date:'EEEE, MMMM d, YYYY' }}</p>
+
+        <div *ngIf="card.snippet.description" class="body">
+          <h3>Description:</h3>
+          <p>{{ card.snippet.description }}</p>
+        </div>
+
+        <app-video-card-statistic [statistics]="card.statistics" class="statistic"></app-video-card-statistic>
+      </div>
+      <div class="publishing-color" appDatePublishingAgo [publishedAt]="card.snippet.publishedAt"></div>
+    </div>
+  </div>
+
+  <ng-template #notFound>
+    <h2>Sorry.<br>Video not found</h2>
+  </ng-template>
+</div>
+
+

@@ -26,9 +26,8 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
       });
 
     if (localStorage.getItem('login')) {
-      this.authService.login(localStorage.getItem('login') as string);
-    } else {
-      this.authService.logout();
+      this.authService.isAuth = true;
+      this.userName = localStorage.getItem('login') as string;
     }
   }
 

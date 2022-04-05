@@ -4,6 +4,6 @@
 
 <h2>{{ card.snippet.title }}</h2>
 
-<a [href]="getCurrentVideoUrl()" class="btn-blue" target="_blank">More</a>
+<a routerLink="video/{{card.id}}" class="btn-blue">More</a>
 <div class="publishing-color" appDatePublishingAgo [publishedAt]="card.snippet.publishedAt"></div>
 

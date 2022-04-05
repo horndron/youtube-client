@@ -30,4 +30,8 @@ export default class SearchService {
         this.searchResult$.next(searchResult.items);
       });
   }
+
+  getItemFromSearchResult(id: string): SearchItem | undefined {
+    return this.result.find((item) => item.id === id);
+  }
 }

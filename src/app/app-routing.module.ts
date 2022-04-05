@@ -4,17 +4,14 @@ import LoginComponent from './auth/pages/login/login.component';
 import AuthGuard from './core/guards/auth.guard';
 import NotFoundErrorComponent from './core/pages/not-found-error/not-found-error.component';
 import SearchResultComponent from './youtube/pages/search-result/search-result.component';
+import VideoCardDetailComponent from './youtube/pages/video-card-detail/video-card-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
-    path: 'main',
-    component: SearchResultComponent,
-    canActivate: [AuthGuard],
+    path: '', component: SearchResultComponent, pathMatch: 'full', canActivate: [AuthGuard],
   },
-  {
-    path: '', redirectTo: 'main', pathMatch: 'full',
-  },
+  { path: 'video/:id', component: VideoCardDetailComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundErrorComponent },
 ];
 
