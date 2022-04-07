@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import SearchService from 'src/app/core/services/search.service';
 import { SearchItem } from '../../models/video-card.model';
 
@@ -9,8 +10,10 @@ import { SearchItem } from '../../models/video-card.model';
   templateUrl: './video-card-detail.component.html',
   styleUrls: ['./video-card-detail.component.sass'],
 })
-export default class VideoCardDetailComponent implements OnInit {
+export default class VideoCardDetailComponent implements OnInit, OnDestroy {
   card: SearchItem | undefined;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private route: ActivatedRoute,
@@ -19,12 +22,24 @@ export default class VideoCardDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id') as string;
-    this.card = this.searchService.getItemFromSearchResult(id);
-    console.log(this.card);
+    this.getCard();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
   back() {
     this.location.back();
+  }
+
+  getCard(): void {
+    const id = this.route.snapshot.paramMap.get('id') as string;
+    this.searchService.getItemFromSearchResult()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((results) => {
+        this.card = results.items.find((item) => item.id === id);
+      });
   }
 }

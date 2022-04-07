@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { SearchResponse } from 'src/app/youtube/models/search-response.model';
 import { SearchItem } from 'src/app/youtube/models/video-card.model';
 
@@ -31,7 +31,7 @@ export default class SearchService {
       });
   }
 
-  getItemFromSearchResult(id: string): SearchItem | undefined {
-    return this.result.find((item) => item.id === id);
+  getItemFromSearchResult(): Observable<SearchResponse> {
+    return this.http.get<SearchResponse>(this.urlAPI);
   }
 }
