@@ -3,8 +3,9 @@ import VideoCardStatisticComponent from './components/video-card-statistic/video
 import VideoCardDetailComponent from './pages/video-card-detail/video-card-detail.component';
 import VideoCardComponent from './components/video-card/video-card.component';
 import SearchResultComponent from './pages/search-result/search-result.component';
-import CoreModule from '../core/core.module';
 import SharedModule from '../shared/shared.module';
+import YoutubeRoutingModule from './youtube-routing.module';
+import CoreModule from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,9 @@ import SharedModule from '../shared/shared.module';
     VideoCardDetailComponent,
   ],
   imports: [
-    SharedModule,
     CoreModule,
+    SharedModule,
+    YoutubeRoutingModule,
   ],
 })
 export default class YoutubeModule { }

@@ -10,10 +10,6 @@ import { Component } from '@angular/core';
 export default class AppComponent {
   filters: boolean = false;
 
-  // searchResult: SearchItem[] = [];
-
-  // constructor(private searchService: SearchService) { }
-
   viewFilters() {
     this.filters = !this.filters;
   }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import DatePublishingAgoDirective from './directives/date-publishing-ago.directive';
-import AppRoutingModule from '../app-routing.module';
 
 @NgModule({
   declarations: [
@@ -11,14 +10,12 @@ import AppRoutingModule from '../app-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
   ],
   exports: [
     DatePublishingAgoDirective,
     FormsModule,
     CommonModule,
-    AppRoutingModule,
     ReactiveFormsModule,
   ],
 })
