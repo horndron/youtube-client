@@ -22,14 +22,8 @@ export default class AuthService {
     private router: Router,
   ) {}
 
-  static generateToken(length: number): string {
-    const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.split('');
-    const token = [];
-    for (let i = 0; i < length; i += 1) {
-      const j = Math.floor(Math.random() * (letters.length - 1));
-      token[i] = letters[j] as string;
-    }
-    return token.join('');
+  static generateToken(): string {
+    return Math.random().toString(16).substring(2, 10);
   }
 
   login(username: string, password?: string): void {
@@ -38,7 +32,7 @@ export default class AuthService {
 
     // this.http.post<void>(this.url, { username, password }, this.httpOptions)
     //   .subscribe(() => {
-    localStorage.setItem('authToken', AuthService.generateToken(32));
+    localStorage.setItem('authToken', AuthService.generateToken());
     localStorage.setItem('login', username);
     this.isAuth = true;
     this.router.navigate([''], {});
