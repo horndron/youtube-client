@@ -1,5 +1,5 @@
 <div class="container d-flex ai-center jc-center">
-  <div *ngIf="card; else notFound" class="card_container d-flex fx-wrap">
+  <div *ngIf="card" class="card_container d-flex fx-wrap">
     <button class="btn" (click)="back()">
       <img src="/assets/back_button.svg" alt="back">
     </button>
@@ -19,10 +19,6 @@
       <div class="publishing-color" appDatePublishingAgo [publishedAt]="card.snippet.publishedAt"></div>
     </div>
   </div>
-
-  <ng-template #notFound>
-    <h2>Sorry.<br>Video not found</h2>
-  </ng-template>
 </div>
 
 
