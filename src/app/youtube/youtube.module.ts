@@ -7,6 +7,7 @@ import SharedModule from '../shared/shared.module';
 import YoutubeRoutingModule from './youtube-routing.module';
 import CoreModule from '../core/core.module';
 
+// key - AIzaSyBrYkhzix-9EXovYyRviW4o36MlE-JZM5c
 @NgModule({
   declarations: [
     SearchResultComponent,

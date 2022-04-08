@@ -7,6 +7,7 @@ import SharedModule from '../shared/shared.module';
 import FooterComponent from './components/footer/footer.component';
 import MenuComponent from './components/menu/menu.component';
 import NotFoundErrorComponent from './pages/not-found-error/not-found-error.component';
+import HeaderContainerComponent from './components/header/header-container/header-container.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import NotFoundErrorComponent from './pages/not-found-error/not-found-error.comp
     FooterComponent,
     MenuComponent,
     NotFoundErrorComponent,
+    HeaderContainerComponent,
   ],
   imports: [
     SharedModule,

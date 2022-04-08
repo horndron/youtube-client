@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,9 +6,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.sass'],
 })
 export default class HeaderComponent {
-  @Output() viewFilters: EventEmitter<boolean> = new EventEmitter();
+  filters: boolean = false;
 
-  toggleFiltersVisible() {
-    this.viewFilters.emit();
+  viewFilters() {
+    this.filters = !this.filters;
   }
 }
