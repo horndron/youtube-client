@@ -1,6 +1,13 @@
-<div class="container d-grid" *ngIf="searchResult.length; else noData">
+<div class="container" *ngIf="searchResult.length; else noData">
+<div class="d-grid">
     <app-video-card *ngFor="let card of searchResult" [card]="card"></app-video-card>
 </div>
+<div class="pagination d-flex fx-wrap jc-space-b ai-center">
+  <button [disabled]="!prevPageToken" (click)="prevPageResult()">« prev</button>
+  <button [disabled]="!nextPageToken" (click)="nextPageResult()">next »</button>
+</div>
+</div>
+
 <ng-template #noData>
   <div class="container">
     <span>No data available. Please enter your query in the search.</span>

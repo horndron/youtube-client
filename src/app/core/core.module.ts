@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import LoginInformationComponent from './components/login-information/login-information.component';
 import SearchComponent from './components/search/search.component';
 import SortingComponent from './components/sorting/sorting.component';
@@ -8,6 +9,7 @@ import FooterComponent from './components/footer/footer.component';
 import MenuComponent from './components/menu/menu.component';
 import NotFoundErrorComponent from './pages/not-found-error/not-found-error.component';
 import HeaderContainerComponent from './components/header/header-container/header-container.component';
+import YoutubeKeyInterceptor from './interceptors/youtube-key.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,13 @@ import HeaderContainerComponent from './components/header/header-container/heade
     SearchComponent,
     SortingComponent,
     FooterComponent,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: YoutubeKeyInterceptor,
+      multi: true,
+    },
   ],
 })
 export default class CoreModule { }

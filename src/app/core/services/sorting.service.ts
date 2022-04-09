@@ -34,7 +34,9 @@ export default class SortingService {
   }
 
   sortSearchItem(): SearchItem[] {
-    const searchResult = this.searchService.result;
+    const searchResult = this.searchService.result
+      ? this.searchService.result.items
+      : [];
 
     if (this.sortField === Sorting.date) {
       return this.asc
@@ -44,20 +46,24 @@ export default class SortingService {
         : searchResult.sort(
           (a, b) => SortingService.dateParse(b) - SortingService.dateParse(a),
         );
-    } if (this.sortField === Sorting.views) {
-      return this.asc
-        ? searchResult.sort(
-          (a, b) => Number(a.statistics.viewCount) - Number(b.statistics.viewCount),
-        )
-        : searchResult.sort(
-          (a, b) => Number(b.statistics.viewCount) - Number(a.statistics.viewCount),
-        );
     }
+    // if (this.sortField === Sorting.views) {
+    //   return this.asc
+    //     ? searchResult.sort(
+    //       (a, b) => Number(a.statistics.viewCount) - Number(b.statistics.viewCount),
+    //     )
+    //     : searchResult.sort(
+    //       (a, b) => Number(b.statistics.viewCount) - Number(a.statistics.viewCount),
+    //     );
+    // }
     return searchResult;
   }
 
   filterSearchItem(): SearchItem[] {
-    const searchResult = this.searchService.result;
+    const searchResult = this.searchService.result
+      ? this.searchService.result.items
+      : [];
+
     return this.filterName.length > 0
       ? searchResult.filter(
         (item) => item.snippet.title.toLowerCase().includes(this.filterName.toLowerCase()),

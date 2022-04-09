@@ -36,10 +36,10 @@ export default class VideoCardDetailComponent implements OnInit, OnDestroy {
 
   getCard(): void {
     const id = this.route.snapshot.paramMap.get('id') as string;
-    this.searchService.getItemFromSearchResult()
+    this.searchService.getItemFromSearchResult(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe((results) => {
-        this.card = results.items.find((item) => item.id === id);
+        [this.card] = results.items;
       });
   }
 }

@@ -14,6 +14,10 @@ export default class SearchResultComponent implements OnInit, OnDestroy {
 
   searchResult: SearchItem[] = [];
 
+  prevPageToken: string | undefined = undefined;
+
+  nextPageToken: string | undefined = undefined;
+
   constructor(
     private searchService: SearchService,
     private sortingService: SortingService,
@@ -23,14 +27,20 @@ export default class SearchResultComponent implements OnInit, OnDestroy {
     this.searchService.searchResult$
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
-        this.searchResult = result;
+        this.searchResult = result.items;
+        this.prevPageToken = result.prevPageToken;
+        this.nextPageToken = result.nextPageToken;
       });
 
     this.sortingService.sorting$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.sortingOrFilteringResult());
 
-    this.searchResult = this.searchService.result;
+    if (this.searchService.result) {
+      this.searchResult = this.searchService.result.items;
+      this.prevPageToken = this.searchService.result.prevPageToken;
+      this.nextPageToken = this.searchService.result.nextPageToken;
+    }
   }
 
   ngOnDestroy(): void {
@@ -44,5 +54,13 @@ export default class SearchResultComponent implements OnInit, OnDestroy {
     }
 
     this.searchResult = this.sortingService.filterSearchItem();
+  }
+
+  prevPageResult(): void {
+    this.searchService.getDifferentPage(this.prevPageToken as string);
+  }
+
+  nextPageResult(): void {
+    this.searchService.getDifferentPage(this.nextPageToken as string);
   }
 }

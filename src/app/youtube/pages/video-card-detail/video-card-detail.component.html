@@ -14,7 +14,7 @@
           <p>{{ card.snippet.description }}</p>
         </div>
 
-        <app-video-card-statistic [statistics]="card.statistics" class="statistic"></app-video-card-statistic>
+        <app-video-card-statistic *ngIf="card.statistics" [statistics]="card.statistics" class="statistic"></app-video-card-statistic>
       </div>
       <div class="publishing-color" appDatePublishingAgo [publishedAt]="card.snippet.publishedAt"></div>
     </div>
