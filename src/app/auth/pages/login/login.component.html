@@ -1,5 +1,5 @@
 <div class="container">
-  <ng-container *ngIf="!isLogged(); else logged">
+  <ng-container *ngIf="!auth; else logged">
     <form [formGroup]="formLogin" (ngSubmit)="login()">
       <legend>Login</legend>
       <label for="login" class="required">

@@ -9,6 +9,8 @@ import AuthService from 'src/app/core/services/auth.service';
   styleUrls: ['./login.component.sass'],
 })
 export default class LoginComponent implements OnInit {
+  auth: boolean = false;
+
   formLogin!: FormGroup;
 
   constructor(
@@ -21,6 +23,8 @@ export default class LoginComponent implements OnInit {
       login: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
+
+    this.isAuthenticated();
   }
 
   controls() {
@@ -34,7 +38,7 @@ export default class LoginComponent implements OnInit {
     }
   }
 
-  isLogged(): boolean {
-    return this.authService.isAuthenticated();
+  isAuthenticated() {
+    this.auth = this.authService.isAuthenticated().auth;
   }
 }

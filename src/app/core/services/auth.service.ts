@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { AuthInfomation } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +14,12 @@ export default class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  isAuth = false;
+  private authInfomation: AuthInfomation = {
+    auth: false,
+    username: undefined,
+  };
 
-  authSubject$ = new Subject<string>();
+  authSubject$ = new Subject<AuthInfomation>();
 
   constructor(
     private http: HttpClient,
@@ -26,32 +30,43 @@ export default class AuthService {
     return Math.random().toString(16).substring(2, 10);
   }
 
-  login(username: string, password?: string): void {
-    console.log('login', username);
-    console.log('password', password);
+  authSubject(): Observable<AuthInfomation> {
+    return this.authSubject$.asObservable();
+  }
 
-    // this.http.post<void>(this.url, { username, password }, this.httpOptions)
-    //   .subscribe(() => {
+  login(userName: string, password?: string): void {
+    this.authInfomation = {
+      auth: true,
+      username: userName,
+    };
+    console.log(password);
+
     localStorage.setItem('authToken', AuthService.generateToken());
-    localStorage.setItem('login', username);
-    this.isAuth = true;
+    localStorage.setItem('login', userName);
     this.router.navigate([''], {});
-    this.authSubject$.next(username);
-    // });
+    this.authSubject$.next(this.authInfomation);
   }
 
   logout(): void {
     localStorage.removeItem('authToken');
     localStorage.removeItem('login');
-    this.isAuth = false;
+    this.authInfomation = {
+      auth: false,
+      username: undefined,
+    };
+    this.authSubject$.next(this.authInfomation);
     this.router.navigate(['/login'], {});
   }
 
-  isAuthenticated(): boolean {
-    if (localStorage.getItem('authToken')) {
-      this.isAuth = true;
+  isAuthenticated(): AuthInfomation {
+    if (localStorage.getItem('login')) {
+      console.log('isAuthenticated()');
+      this.authInfomation = {
+        auth: true,
+        username: localStorage.getItem('login') as string,
+      };
     }
 
-    return this.isAuth;
+    return this.authInfomation;
   }
 }

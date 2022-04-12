@@ -12,23 +12,23 @@ import AuthService from '../../services/auth.service';
 export default class LoginInformationComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  userName = '';
+  userName: string | undefined = undefined;
+
+  auth = false;
 
   constructor(
     private authService: AuthService,
   ) {}
 
   ngOnInit() {
-    this.authService.authSubject$
+    this.authService.authSubject()
       .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
-        this.userName = result;
+        this.userName = result.username;
+        this.auth = result.auth;
       });
 
-    if (localStorage.getItem('login')) {
-      this.authService.isAuth = true;
-      this.userName = localStorage.getItem('login') as string;
-    }
+    this.authInfomation();
   }
 
   ngOnDestroy(): void {
@@ -39,5 +39,10 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
     this.userName = '';
+  }
+
+  authInfomation() {
+    this.auth = this.authService.isAuthenticated().auth;
+    this.userName = this.authService.isAuthenticated().username;
   }
 }

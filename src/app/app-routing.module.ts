@@ -5,10 +5,10 @@ import NotFoundErrorComponent from './core/pages/not-found-error/not-found-error
 import VideoCardDetailComponent from './youtube/pages/video-card-detail/video-card-detail.component';
 
 const routes: Routes = [
-  { path: 'login', loadChildren: () => import('./auth/auth.module').then((m) => m.default) },
   {
     path: '', loadChildren: () => import('./youtube/youtube.module').then((m) => m.default), canActivate: [AuthGuard],
   },
+  { path: 'login', loadChildren: () => import('./auth/auth.module').then((m) => m.default) },
   { path: 'video/:id', component: VideoCardDetailComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundErrorComponent },
 ];
