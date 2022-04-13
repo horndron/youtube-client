@@ -1,1 +1,75 @@
-<p>admin works!</p>
+<div class="container">
+  <form [formGroup]="formCreateVideo" (ngSubmit)="formCreateVideoSubmit()">
+    <legend>Create new video</legend>
+    <label for="title" class="required">
+      <span>title</span>
+      <input type="text" name="title" id="title" formControlName="title">
+      <div class="validation">
+        <span
+          *ngIf="(title?.dirty || title?.touched) && title?.errors?.['required']"
+        >Please enter a title</span>
+        <span
+          *ngIf="(title?.dirty || title?.touched) && title?.errors?.['minlength']"
+        >The title is too short</span>
+        <span
+          *ngIf="(title?.dirty || title?.touched) && title?.errors?.['maxlength']"
+        >The title is too long</span>
+      </div>
+
+    </label>
+    <label for="description" class="required">
+      <span>description</span>
+      <input type="description" name="description" id="description" formControlName="description">
+      <div class="validation">
+        <span
+          *ngIf="(description?.touched || description?.dirty)  && description?.errors?.['maxlength']"
+        >The description is too long</span>
+      </div>
+
+    </label>
+
+    <label for="imageLink" class="required">
+      <span>Image URL</span>
+      <input type="imageLink" name="imageLink" id="imageLink" formControlName="imageLink">
+      <div class="validation">
+        <span
+          *ngIf="(imageLink?.touched || imageLink?.dirty)  && imageLink?.errors?.['required']"
+        >Please enter a link to the image</span>
+        <span
+          *ngIf="(imageLink?.touched || imageLink?.dirty)  && imageLink?.errors?.['isValidUrl']"
+        >The image link is invalid</span>
+      </div>
+
+    </label>
+
+    <label for="videoLink" class="required">
+      <span>Video URL</span>
+      <input type="videoLink" name="videoLink" id="videoLink" formControlName="videoLink">
+      <div class="validation">
+        <span
+          *ngIf="(videoLink?.touched || videoLink?.dirty)  && videoLink?.errors?.['required']"
+        >Please enter a link to the video</span>
+        <span
+          *ngIf="(videoLink?.touched || videoLink?.dirty)  && videoLink?.errors?.['isValidUrl']"
+        >The video link is invalid</span>
+      </div>
+
+    </label>
+
+    <label for="date" class="required">
+      <span>Creation date</span>
+      <input type="date" name="date" id="date" formControlName="date">
+      <div class="validation">
+        <span
+          *ngIf="(date?.touched || date?.dirty)  && date?.errors?.['required']"
+        >Please enter a creation date</span>
+        <span
+          *ngIf="(date?.touched || date?.dirty)  && date?.errors?.['futureDate']"
+        >The date is invalid</span>
+      </div>
+
+    </label>
+
+    <button class="btn" type="submit" [disabled]="formCreateVideo.invalid">Submit</button>
+</form>
+</div>
