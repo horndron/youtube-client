@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import AuthService from 'src/app/core/services/auth.service';
+import isSecurePassword from '../../validators/isSecurePassword';
 
 @Component({
   selector: 'app-login',
@@ -20,18 +21,18 @@ export default class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
-      login: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      login: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8), isSecurePassword]),
     });
 
     this.isAuthenticated();
   }
 
-  controls() {
-    return this.formLogin.controls;
-  }
+  get login() { return this.formLogin.get('login'); }
 
-  login() {
+  get password() { return this.formLogin.get('password'); }
+
+  loginFormSubmit() {
     if (this.formLogin.valid) {
       console.log(this.formLogin.value);
       this.authService.login(this.formLogin.value.login, this.formLogin.value.password);
