@@ -1,15 +1,17 @@
 import {
-  Component, OnDestroy, OnInit,
+  Component, EventEmitter, OnDestroy, OnInit, Output,
 } from '@angular/core';
 import { takeUntil, Subject } from 'rxjs';
 import AuthService from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-information',
   templateUrl: './login-information.component.html',
   styleUrls: ['./login-information.component.sass'],
 })
 export default class LoginInformationComponent implements OnInit, OnDestroy {
+  @Output() isAuth: EventEmitter<boolean> = new EventEmitter();
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   userName: string | undefined = undefined;
@@ -26,6 +28,7 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
       .subscribe((result) => {
         this.userName = result.username;
         this.auth = result.auth;
+        this.isAuth.emit(this.auth);
       });
 
     this.authInfomation();
@@ -44,5 +47,6 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
   authInfomation() {
     this.auth = this.authService.isAuthenticated().auth;
     this.userName = this.authService.isAuthenticated().username;
+    this.isAuth.emit(this.auth);
   }
 }

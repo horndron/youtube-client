@@ -4,6 +4,6 @@
 </button>
 <button class="btn" *ngIf="auth; else login" (click)="logout()">Logout</button>
 <ng-template #login>
-  <a class="btn" routerLink="login">Login</a>
+  <a class="btn" routerLink="user/login">Login</a>
 </ng-template>
 

@@ -8,7 +8,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export default class HeaderContainerComponent {
   @Output() viewFilters: EventEmitter<boolean> = new EventEmitter();
 
+  auth = false;
+
   toggleFiltersVisible() {
     this.viewFilters.emit();
+  }
+
+  isAuthenticated(auth: boolean) {
+    this.auth = auth;
   }
 }

@@ -6,7 +6,10 @@
       <a routerLink="">Main</a>
     </li>
     <li>
-      <a routerLink="login">Login</a>
+      <a routerLink="user/login">Login</a>
+    </li>
+    <li *ngIf="auth">
+      <a routerLink="user/admin">Add new Video</a>
     </li>
   </ul>
 </nav>

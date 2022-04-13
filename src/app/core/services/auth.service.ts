@@ -55,12 +55,11 @@ export default class AuthService {
       username: undefined,
     };
     this.authSubject$.next(this.authInfomation);
-    this.router.navigate(['/login'], {});
+    this.router.navigate(['user/login'], {});
   }
 
   isAuthenticated(): AuthInfomation {
     if (localStorage.getItem('login')) {
-      console.log('isAuthenticated()');
       this.authInfomation = {
         auth: true,
         username: localStorage.getItem('login') as string,
