@@ -40,7 +40,8 @@ export default class AdminComponent implements OnInit {
 
   formCreateVideoSubmit() {
     if (this.formCreateVideo.valid) {
-      alert(this.formCreateVideo.value);
+      console.log(this.formCreateVideo.value);
+      alert('Video created! Form value in console)');
       this.formCreateVideo.reset();
     }
   }
