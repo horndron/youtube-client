@@ -4,7 +4,9 @@
       <img src="/assets/back_button.svg" alt="back">
     </button>
     <div class="card_video d-flex fx-wrap">
-      <img class="card_video__image" src="{{ card.snippet.thumbnails.maxres.url }}" alt="">
+      <iframe
+        class="card_video__iframe"
+        [src]="videoUrl" frameborder="0" allowfullscreen></iframe>
       <div class="description d-flex fx-wrap">
         <h1>{{ card.snippet.title }}</h1>
         <p class="date">{{ card.snippet.publishedAt | date:'EEEE, MMMM d, YYYY' }}</p>

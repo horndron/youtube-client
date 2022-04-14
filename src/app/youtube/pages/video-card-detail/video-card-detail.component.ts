@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import SearchService from 'src/app/core/services/search.service';
@@ -13,12 +14,15 @@ import { SearchItem } from '../../models/video-card.model';
 export default class VideoCardDetailComponent implements OnInit, OnDestroy {
   card: SearchItem | undefined;
 
+  videoUrl!: SafeResourceUrl;
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private searchService: SearchService,
+    private domdanitizer: DomSanitizer,
   ) {}
 
   ngOnInit() {
@@ -40,6 +44,12 @@ export default class VideoCardDetailComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((results) => {
         [this.card] = results.items;
+        this.iframeCardUrl();
       });
+  }
+
+  iframeCardUrl(): void {
+    this.videoUrl = this.domdanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.card?.id}`);
+    console.log(`Video URL: ${this.videoUrl}`);
   }
 }
