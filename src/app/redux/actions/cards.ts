@@ -1,9 +1,10 @@
 import { createAction, props } from '@ngrx/store';
+import { CustomCards } from 'src/app/core/models/customCards';
 import { SearchResponse } from '../../youtube/models/search-response.model';
 
-export const searchInputVideo = createAction(
-  '[YOUTUBE] search Video',
-  props<{ search: string }>(),
+export const addCustomVideo = createAction(
+  '[YOUTUBE] Add Custom Video',
+  props<{ card: CustomCards }>(),
 );
 
 export const searchRequestVideo = createAction(
@@ -11,4 +12,4 @@ export const searchRequestVideo = createAction(
   props<{ youtube: SearchResponse }>(),
 );
 
-export default searchInputVideo;
+export default addCustomVideo;

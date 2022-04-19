@@ -74,6 +74,11 @@ form
   border-radius: 5px
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3)
 
+  .btn
+    margin-top: 35px
+    margin-left: auto
+
+
   legend
     font-size: 1.5em
     text-align: left
@@ -112,13 +117,16 @@ form
     .ng-valid.ng-touched
       border-color: green
 
-  .btn
+      &:hover
+        color: red
+        box-shadow: inset 0px 0px 10px red
+        border-color: red
+
+.btn
     display: block
     color: #fff
     padding: 5px 15px
     background-color: #2f80ed
-    margin-top: 35px
-    margin-left: auto
     border-color: #2f80ed
     border-radius: 5px
     transition: 0.5s
@@ -134,12 +142,5 @@ form
       color: #000
       border-color: #000
       cursor: not-allowed
-
-      &:hover
-        color: red
-        box-shadow: inset 0px 0px 10px red
-        border-color: red
-
-
 
 

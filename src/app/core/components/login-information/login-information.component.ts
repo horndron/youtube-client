@@ -1,7 +1,9 @@
 import {
   Component, EventEmitter, OnDestroy, OnInit, Output,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { takeUntil, Subject } from 'rxjs';
+import { userLoginSelector } from 'src/app/auth/ngrx-store/selector';
 import AuthService from '../../services/auth.service';
 
 @Component({
@@ -19,19 +21,18 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
   auth = false;
 
   constructor(
+    private store: Store,
     private authService: AuthService,
   ) {}
 
   ngOnInit() {
-    this.authService.authSubject()
+    this.store.select(userLoginSelector)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((result) => {
-        this.userName = result.username;
-        this.auth = result.auth;
+      .subscribe((login) => {
+        this.userName = login;
+        this.auth = !!login.length;
         this.isAuth.emit(this.auth);
       });
-
-    this.authInfomation();
   }
 
   ngOnDestroy(): void {
@@ -41,12 +42,5 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
-    this.userName = '';
-  }
-
-  authInfomation() {
-    this.auth = this.authService.isAuthenticated().auth;
-    this.userName = this.authService.isAuthenticated().username;
-    this.isAuth.emit(this.auth);
   }
 }

@@ -3,7 +3,8 @@ import { Subject, takeUntil } from 'rxjs';
 import SearchService from 'src/app/core/services/search.service';
 import SortingService from 'src/app/core/services/sorting.service';
 import { Store } from '@ngrx/store';
-import { youtubeCardsSelector } from 'src/app/redux/selectors/cards';
+import { customCardsSelector, youtubeCardsSelector } from 'src/app/redux/selectors/cards';
+import { CustomCards } from 'src/app/core/models/customCards';
 import { SearchItem } from '../../models/video-card.model';
 
 @Component({
@@ -14,7 +15,13 @@ import { SearchItem } from '../../models/video-card.model';
 export default class SearchResultComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  viewCustomCards = false;
+
+  searchFilter = '';
+
   searchResult: SearchItem[] = [];
+
+  customCards: CustomCards[] = [];
 
   prevPageToken: string | undefined = undefined;
 
@@ -37,9 +44,20 @@ export default class SearchResultComponent implements OnInit, OnDestroy {
         }
       });
 
+    this.store.select(customCardsSelector)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((cards) => {
+        if (cards) {
+          this.customCards = cards.length ? cards : [];
+        }
+      });
+
     this.sortingService.sorting$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.sortingOrFilteringResult());
+      .subscribe(() => {
+        this.searchFilter = this.sortingService.filterName;
+        this.sortingOrFilteringResult();
+      });
   }
 
   ngOnDestroy(): void {
@@ -51,8 +69,6 @@ export default class SearchResultComponent implements OnInit, OnDestroy {
     if (this.sortingService.sortField) {
       this.searchResult = this.sortingService.sortSearchItem([...this.searchResult]);
     }
-
-    this.searchResult = this.sortingService.filterSearchItem(this.searchResult);
   }
 
   prevPageResult(): void {
