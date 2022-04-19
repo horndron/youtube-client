@@ -47,6 +47,7 @@ export default class AdminComponent implements OnInit {
       console.log(this.formCreateVideo.value);
       this.store.dispatch(addCustomVideo({ card: this.formCreateVideo.value }));
       this.formCreateVideo.reset();
+      alert('Card adding');
     }
   }
 }
