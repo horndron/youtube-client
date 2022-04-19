@@ -1,4 +1,4 @@
-import { SearchItem } from './video-card.model';
+import { SearchItem, Statistics } from './video-card.model';
 
 export interface SearchResponse {
   kind: string;
@@ -11,4 +11,21 @@ export interface SearchResponse {
     resultsPerPage: number;
   };
   items: SearchItem[];
+}
+
+export interface StatisticsResponseItem {
+  kind: string;
+  etag: string;
+  id: string;
+  statistics: Statistics
+}
+
+export interface StatisticsResponse {
+  kind: string;
+  etag: string;
+  items: StatisticsResponseItem[];
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
 }

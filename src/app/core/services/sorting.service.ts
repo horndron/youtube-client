@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SearchItem } from '../../youtube/models/video-card.model';
-import SearchService from './search.service';
 
 enum Sorting {
   date = 'publishedAt',
@@ -20,8 +19,6 @@ export default class SortingService {
 
   sorting$ = new Subject<void>();
 
-  constructor(private searchService: SearchService) {}
-
   setSortFieldAndAsc(value: string, asc: boolean): void {
     this.sortField = value;
     this.asc = asc;
@@ -33,11 +30,8 @@ export default class SortingService {
     this.sorting$.next();
   }
 
-  sortSearchItem(): SearchItem[] {
-    const searchResult = this.searchService.result
-      ? this.searchService.result.items
-      : [];
-
+  sortSearchItem(items: SearchItem[]): SearchItem[] {
+    const searchResult = items;
     if (this.sortField === Sorting.date) {
       return this.asc
         ? searchResult.sort(
@@ -47,22 +41,20 @@ export default class SortingService {
           (a, b) => SortingService.dateParse(b) - SortingService.dateParse(a),
         );
     }
-    // if (this.sortField === Sorting.views) {
-    //   return this.asc
-    //     ? searchResult.sort(
-    //       (a, b) => Number(a.statistics.viewCount) - Number(b.statistics.viewCount),
-    //     )
-    //     : searchResult.sort(
-    //       (a, b) => Number(b.statistics.viewCount) - Number(a.statistics.viewCount),
-    //     );
-    // }
+    if (this.sortField === Sorting.views) {
+      return this.asc
+        ? searchResult.sort(
+          (a, b) => Number(a.statistics?.viewCount) - Number(b.statistics?.viewCount),
+        )
+        : searchResult.sort(
+          (a, b) => Number(b.statistics?.viewCount) - Number(a.statistics?.viewCount),
+        );
+    }
     return searchResult;
   }
 
-  filterSearchItem(): SearchItem[] {
-    const searchResult = this.searchService.result
-      ? this.searchService.result.items
-      : [];
+  filterSearchItem(items: SearchItem[]): SearchItem[] {
+    const searchResult = items;
 
     return this.filterName.length > 0
       ? searchResult.filter(
