@@ -4,7 +4,7 @@ import { map } from 'rxjs';
 import { userIsAuthenticated, userLogin } from './action';
 
 @Injectable()
-export default class AppEffects {
+export default class AuthEffects {
   updatedAt$ = createEffect(() => this.actions$.pipe(
     ofType(userIsAuthenticated),
     map(() => {

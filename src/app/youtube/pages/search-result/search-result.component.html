@@ -3,7 +3,7 @@
   <button
     class="btn"
     (click)="viewCustomCards = !viewCustomCards"
-    [disabled]="!viewCustomCards || searchResult.length"
+    [disabled]="!viewCustomCards || searchResult.length === 0"
   >Youtube Cards</button>
   <button
     class="btn"

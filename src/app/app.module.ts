@@ -11,6 +11,7 @@ import SharedModule from './shared/shared.module';
 import { reducers, metaReducers } from './redux/reducers';
 import { environment } from '../environments/environment';
 import { AppEffects } from './redux/effects/app.effects';
+import AuthEffects from './auth/ngrx-store/effects';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { AppEffects } from './redux/effects/app.effects';
       metaReducers,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects, AuthEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],

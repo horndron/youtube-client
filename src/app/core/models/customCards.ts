@@ -3,5 +3,5 @@ export interface CustomCards {
   description?: string;
   imageLink: string;
   videoLink: string;
-  created: string;
+  date: string;
 }

@@ -1,4 +1,5 @@
 <img src="{{ card.imageLink }}" alt="">
 <h2>{{ card.title }}</h2>
-<div class="publishing-color" appDatePublishingAgo [publishedAt]="card.created"></div>
+<p class="description">{{ card.description }}</p>
+<p class="date"><span>Publish:</span> <span>{{ card.date | date:'dd.MM.YYY' }}</span></p>
 

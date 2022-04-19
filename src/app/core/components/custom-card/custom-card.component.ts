@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CustomCards } from '../../models/customCards';
 
 @Component({
@@ -6,6 +6,10 @@ import { CustomCards } from '../../models/customCards';
   templateUrl: './custom-card.component.html',
   styleUrls: ['./custom-card.component.sass'],
 })
-export default class CustomCardComponent {
+export default class CustomCardComponent implements OnInit {
   @Input() card!: CustomCards;
+
+  ngOnInit() {
+    console.log(this.card);
+  }
 }
