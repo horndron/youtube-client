@@ -30,7 +30,7 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((login) => {
         this.userName = login;
-        this.auth = !!login.length;
+        this.auth = login != null && !!login.length;
         this.isAuth.emit(this.auth);
       });
   }

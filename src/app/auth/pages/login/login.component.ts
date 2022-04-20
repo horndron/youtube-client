@@ -34,7 +34,7 @@ export default class LoginComponent implements OnInit, OnDestroy {
     this.store.select(userLoginSelector)
       .pipe(takeUntil(this.destroy$))
       .subscribe((login) => {
-        this.auth = !!login.length;
+        this.auth = login != null && !!login.length;
       });
   }
 
