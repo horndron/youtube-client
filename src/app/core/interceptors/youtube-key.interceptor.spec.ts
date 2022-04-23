@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { YoutubeKeyInterceptor } from './youtube-key.interceptor';
+import YoutubeKeyInterceptor from './youtube-key.interceptor';
 
 describe('YoutubeKeyInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      YoutubeKeyInterceptor
-      ]
+      YoutubeKeyInterceptor,
+    ],
   }));
 
   it('should be created', () => {

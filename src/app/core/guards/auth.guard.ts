@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree,

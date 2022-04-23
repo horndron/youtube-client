@@ -1,4 +1,4 @@
-import { CardsFilterPipe } from './cards-filter.pipe';
+import CardsFilterPipe from './cards-filter.pipe';
 
 describe('CardsFilterPipe', () => {
   it('create an instance', () => {

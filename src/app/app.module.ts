@@ -10,7 +10,7 @@ import CoreModule from './core/core.module';
 import SharedModule from './shared/shared.module';
 import { reducers, metaReducers } from './redux/reducers';
 import { environment } from '../environments/environment';
-import { AppEffects } from './redux/effects/app.effects';
+import AppEffects from './redux/effects/app.effects';
 import AuthEffects from './auth/ngrx-store/effects';
 
 @NgModule({

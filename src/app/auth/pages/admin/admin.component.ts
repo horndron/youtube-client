@@ -44,9 +44,9 @@ export default class AdminComponent implements OnInit {
 
   formCreateVideoSubmit() {
     if (this.formCreateVideo.valid) {
-      console.log(this.formCreateVideo.value);
       this.store.dispatch(addCustomVideo({ card: this.formCreateVideo.value }));
       this.formCreateVideo.reset();
+      // eslint-disable-next-line no-alert
       alert('Card adding');
     }
   }

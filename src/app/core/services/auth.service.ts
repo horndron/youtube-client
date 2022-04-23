@@ -25,6 +25,7 @@ export default class AuthService {
   }
 
   login(userName: string, password?: string): void {
+    // eslint-disable-next-line no-console
     console.log(password);
     this.store.dispatch(userLogin({ login: userName }));
     localStorage.setItem('authToken', AuthService.generateToken());

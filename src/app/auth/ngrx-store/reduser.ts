@@ -2,6 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import { userLogout, userLogin } from './action';
 import { UserState } from './models';
 
+export const authFeatureKey = 'authFeatureKey';
+
 export const initialState: UserState = {
   login: '',
 };
