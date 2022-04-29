@@ -1,0 +1,9 @@
+<div class="container d-flex fx-wrap jc-space-b ai-center">
+  <div class="search-panel d-flex fx-wrap ai-center">
+    <img src="../../../assets/logo.svg" alt="" class="logo">
+    <app-search></app-search>
+    <img src="../../../assets/search_settings.svg" alt="" class="sort-filter" (click)="toggleFiltersVisible()">
+  </div>
+  <app-login-information (isAuth)="isAuthenticated($event)"></app-login-information>
+  <app-menu [auth]="auth"></app-menu>
+</div>

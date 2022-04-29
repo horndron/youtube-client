@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
 })
-export default class AppComponent {
-  title = 'youtube-client';
-}
+export default class AppComponent {}

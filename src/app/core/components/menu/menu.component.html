@@ -1,0 +1,15 @@
+<button class="menu-toggle" [ngClass]="{ 'active': status }" (click)="status = !status"></button>
+
+<nav class="navbar">
+  <ul (click)="toogleMenu($event)">
+    <li>
+      <a routerLink="">Main</a>
+    </li>
+    <li>
+      <a routerLink="user/login">Login</a>
+    </li>
+    <li *ngIf="auth">
+      <a routerLink="user/admin">Add new Video</a>
+    </li>
+  </ul>
+</nav>
