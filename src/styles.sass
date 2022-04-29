@@ -1,0 +1,146 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
+
+*
+  box-sizing: border-box
+  font-family: 'Roboto', sans-serif
+  margin: 0
+  padding: 0
+  max-width: 100%
+
+.w-100
+  width: 100%
+
+.container
+  position: relative
+  display: block
+  max-width: 1200px
+  padding: 0 15px
+  margin: 0 auto
+
+.d-flex
+  display: flex
+
+.fx-wrap
+  flex-wrap: wrap
+
+.jc-center
+  justify-content: center
+
+.jc-space-b
+  justify-content: space-between
+
+.ai-center
+  align-items: center
+
+.btn-blue
+  width: 120px
+  min-height: 32px
+  display: flex
+  justify-content: center
+  align-items: center
+  color: #fff
+  font-size: 14px
+  text-transform: lowercase
+  background-color: #2f80ec
+  margin: 0 auto
+  border-radius: 5px
+  text-decoration: none
+  transition: 0.5s
+  border: 1px solid #2f80ec
+
+  &:hover
+    color: #2f80ec
+    background-color: #fff
+    box-shadow: 0 0 10px 0 rgba(47, 128, 236, 0.5)
+
+
+.publishing-color
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  height: 5px
+  margin-top: auto
+  border: none
+  background-color: #2f80ec
+
+
+
+form
+  padding: 25px
+  margin-top: 30px
+  background: #eee
+  border-radius: 5px
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3)
+
+  .btn
+    margin-top: 35px
+    margin-left: auto
+
+
+  legend
+    font-size: 1.5em
+    text-align: left
+    font-weight: 600
+    margin-bottom:15px
+
+  label
+    position: relative
+    display: flex
+    flex-direction: column
+    text-align: left
+    margin-bottom: 25px
+
+    span
+      font-size: 0.8em
+      margin-bottom: 2px
+      opacity: 0.5
+
+    input
+      width: 250px
+      padding: 5px 10px
+      border-radius: 5px
+      border-color: #dcdcdc
+
+    .validation
+      position: absolute
+      left: 0
+      top: 48px
+      color: red
+      font-size: 0.75em
+      opacity: 1
+
+    .ng-invalid.ng-touched
+      border-color: red
+
+    .ng-valid.ng-touched
+      border-color: green
+
+      &:hover
+        color: red
+        box-shadow: inset 0px 0px 10px red
+        border-color: red
+
+.btn
+    display: block
+    color: #fff
+    padding: 5px 15px
+    background-color: #2f80ed
+    border-color: #2f80ed
+    border-radius: 5px
+    transition: 0.5s
+    cursor: pointer
+
+    &:hover
+      color: #2f80ed
+      background-color: #fff
+
+    &[disabled]
+      opacity: 0.8
+      background-color: #dcdcdc
+      color: #000
+      border-color: #000
+      cursor: not-allowed
+
+

@@ -1,0 +1,42 @@
+<div class="container">
+  <ng-container *ngIf="!auth; else logged">
+    <form [formGroup]="formLogin" (ngSubmit)="loginFormSubmit()">
+      <legend>Login</legend>
+      <label for="login" class="required">
+        <span>Login</span>
+        <input type="text" name="login" id="login" formControlName="login">
+        <div class="validation">
+          <span
+            *ngIf="(login?.dirty || login?.touched) && login?.errors?.['required']"
+          >Please enter a login email</span>
+          <span
+            *ngIf="(login?.dirty || login?.touched) && login?.errors?.['email']"
+          >The login email is invalid</span>
+        </div>
+
+      </label>
+      <label for="password" class="required">
+        <span>Password</span>
+        <input type="password" name="password" id="password" formControlName="password">
+        <div class="validation">
+          <span
+            *ngIf="(password?.touched || password?.dirty)  && password?.errors?.['required']"
+          >Please enter a password</span>
+          <span
+            *ngIf="(password?.touched || password?.dirty)  && password?.errors?.['minlength']"
+          >Min length 8 simbols</span>
+          <span
+            *ngIf="(password?.touched || password?.dirty)  && password?.errors?.['isSecurePassword']"
+          >{{ password?.errors?.['isSecurePassword'] }}</span>
+        </div>
+
+      </label>
+      <button class="btn" type="submit" [disabled]="formLogin.invalid">Submit</button>
+  </form>
+  </ng-container>
+
+  <ng-template #logged>
+    <h2 class="center">You are already logged<br>in to your account</h2>
+  </ng-template>
+
+</div>

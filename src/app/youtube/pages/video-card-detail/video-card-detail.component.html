@@ -1,0 +1,26 @@
+<div class="container d-flex ai-center jc-center">
+  <div *ngIf="card" class="card_container d-flex fx-wrap">
+    <button class="btn" (click)="back()">
+      <img src="/assets/back_button.svg" alt="back">
+    </button>
+    <div class="card_video d-flex fx-wrap">
+      <iframe
+        class="card_video__iframe"
+        [src]="videoUrl" frameborder="0" allowfullscreen></iframe>
+      <div class="description d-flex fx-wrap">
+        <h1>{{ card.snippet.title }}</h1>
+        <p class="date">{{ card.snippet.publishedAt | date:'EEEE, MMMM d, YYYY' }}</p>
+
+        <div *ngIf="card.snippet.description" class="body">
+          <h3>Description:</h3>
+          <p>{{ card.snippet.description }}</p>
+        </div>
+
+        <app-video-card-statistic *ngIf="card.statistics" [statistics]="card.statistics" class="statistic"></app-video-card-statistic>
+      </div>
+      <div class="publishing-color" appDatePublishingAgo [publishedAt]="card.snippet.publishedAt"></div>
+    </div>
+  </div>
+</div>
+
+

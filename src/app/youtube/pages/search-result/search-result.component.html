@@ -1,0 +1,38 @@
+<div class="container" *ngIf="searchResult.length || customCards.length; else noData">
+<div class="buttons">
+  <button
+    class="btn"
+    (click)="viewCustomCards = !viewCustomCards"
+    [disabled]="!viewCustomCards || searchResult.length === 0"
+  >Youtube Cards</button>
+  <button
+    class="btn"
+    (click)="viewCustomCards = !viewCustomCards"
+    [disabled]="viewCustomCards || customCards.length === 0"
+  >Custom Cards</button>
+</div>
+<div class="youtube-results" *ngIf="customCards.length && viewCustomCards">
+  <div class="d-grid">
+    <app-custom-card *ngFor="let card of customCards" [card]="card"></app-custom-card>
+  </div>
+</div>
+
+<div class="youtube-results" *ngIf="searchResult.length && !viewCustomCards">
+  <div class="d-grid">
+    <app-video-card *ngFor="let card of searchResult | cardsFilter: searchFilter" [card]="card"></app-video-card>
+  </div>
+  <div class="pagination d-flex fx-wrap jc-space-b ai-center">
+    <button [disabled]="!prevPageToken" (click)="prevPageResult()">« prev</button>
+    <button [disabled]="!nextPageToken" (click)="nextPageResult()">next »</button>
+  </div>
+</div>
+
+</div>
+
+<ng-template #noData>
+  <div class="container">
+    <span>No data available. Please enter your query in the search.</span>
+  </div>
+</ng-template>
+
+
