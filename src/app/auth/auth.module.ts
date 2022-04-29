@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import LoginComponent from './pages/login/login.component';
 import SharedModule from '../shared/shared.module';
 import AuthRoutingModule from './auth-routing.module';
 import AdminComponent from './pages/admin/admin.component';
+import * as authFeature from './ngrx-store/reduser';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,7 @@ import AdminComponent from './pages/admin/admin.component';
   imports: [
     SharedModule,
     AuthRoutingModule,
+    StoreModule.forFeature(authFeature.authFeatureKey, authFeature.userReducer),
   ],
   exports: [
     LoginComponent,

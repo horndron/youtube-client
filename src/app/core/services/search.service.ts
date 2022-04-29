@@ -1,7 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { SearchResponse } from 'src/app/youtube/models/search-response.model';
+import { Store } from '@ngrx/store';
+import {
+  Observable, Subject, switchMap,
+} from 'rxjs';
+import { searchRequestVideo } from 'src/app/redux/actions/cards';
+import { SearchResponse, StatisticsResponse } from 'src/app/youtube/models/search-response.model';
+import { SearchItem } from 'src/app/youtube/models/video-card.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +20,7 @@ export default class SearchService {
 
   private part: string[] = ['snippet', 'statistics'];
 
-  private maxResults = 16;
+  private maxResults = 12;
 
   searchInputValue = '';
 
@@ -29,16 +34,42 @@ export default class SearchService {
 
   constructor(
     private http: HttpClient,
+    private store: Store,
   ) { }
 
   getSearchResult(search: string): void {
+    let searchRequest: SearchResponse;
+    const searchId: string[] = [];
+
     this.http.get<SearchResponse>(
       `${this.urlAPI}/${this.typeSearch[0]}?type=${this.type}&part=${this.part[0]}&maxResults=${this.maxResults}&q=${search}`,
     )
-      .subscribe((searchResult) => {
+      .pipe(
+        switchMap((response: SearchResponse) => {
+          searchRequest = response;
+          searchRequest.items.forEach((card: SearchItem) => {
+            searchId.push(card.id.videoId);
+          });
+          return this.http.get<StatisticsResponse>(
+            `${this.urlAPI}/${this.typeSearch[1]}?id=${searchId.toString()}&part=${this.part[1]}`,
+          );
+        }),
+      )
+      .subscribe((statisticsRequest: StatisticsResponse) => {
         this.searchInputValue = search;
-        this.result = searchResult;
-        this.searchResult$.next(searchResult);
+        const requestResult = searchRequest;
+
+        if (searchRequest && statisticsRequest) {
+          const searchRequestItems = searchRequest.items.map((card) => {
+            const cardItem = card;
+            const statistics = statisticsRequest.items
+              .find((item) => item.id === cardItem.id.videoId)?.statistics;
+            cardItem.statistics = statistics;
+            return cardItem;
+          });
+          (requestResult as SearchResponse).items = searchRequestItems;
+        }
+        this.store.dispatch(searchRequestVideo({ youtube: requestResult }));
       });
   }
 
@@ -47,7 +78,7 @@ export default class SearchService {
       `${this.urlAPI}/${this.typeSearch[0]}?type=${this.type}&part=${this.part[0]}&maxResults=${this.maxResults}&q=${this.searchInputValue}&pageToken=${pageToken}`,
     )
       .subscribe((searchResult) => {
-        this.result = searchResult;
+        this.store.dispatch(searchRequestVideo({ youtube: searchResult }));
         this.searchResult$.next(searchResult);
       });
   }

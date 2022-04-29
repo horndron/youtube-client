@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import isValidUrl from '../../validators/isValidUrl';
 import futureDate from '../../validators/futureDate';
+import { addCustomVideo } from '../../../redux/actions/cards';
 
 @Component({
   selector: 'app-admin',
@@ -10,6 +12,8 @@ import futureDate from '../../validators/futureDate';
 })
 export default class AdminComponent implements OnInit {
   formCreateVideo!: FormGroup;
+
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.formCreateVideo = new FormGroup({
@@ -40,9 +44,10 @@ export default class AdminComponent implements OnInit {
 
   formCreateVideoSubmit() {
     if (this.formCreateVideo.valid) {
-      console.log(this.formCreateVideo.value);
-      alert('Video created! Form value in console)');
+      this.store.dispatch(addCustomVideo({ card: this.formCreateVideo.value }));
       this.formCreateVideo.reset();
+      // eslint-disable-next-line no-alert
+      alert('Card adding');
     }
   }
 }

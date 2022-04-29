@@ -50,6 +50,5 @@ export default class VideoCardDetailComponent implements OnInit, OnDestroy {
 
   iframeCardUrl(): void {
     this.videoUrl = this.domdanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.card?.id}`);
-    console.log(`Video URL: ${this.videoUrl}`);
   }
 }

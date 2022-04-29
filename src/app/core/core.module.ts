@@ -10,6 +10,8 @@ import MenuComponent from './components/menu/menu.component';
 import NotFoundErrorComponent from './pages/not-found-error/not-found-error.component';
 import HeaderContainerComponent from './components/header/header-container/header-container.component';
 import YoutubeKeyInterceptor from './interceptors/youtube-key.interceptor';
+import CardsFilterPipe from './pipes/cards-filter.pipe';
+import CustomCardComponent from './components/custom-card/custom-card.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import YoutubeKeyInterceptor from './interceptors/youtube-key.interceptor';
     MenuComponent,
     NotFoundErrorComponent,
     HeaderContainerComponent,
+    CardsFilterPipe,
+    CustomCardComponent,
   ],
   imports: [
     SharedModule,
@@ -31,6 +35,8 @@ import YoutubeKeyInterceptor from './interceptors/youtube-key.interceptor';
     SearchComponent,
     SortingComponent,
     FooterComponent,
+    CardsFilterPipe,
+    CustomCardComponent,
   ],
   providers: [
     {

@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { AuthInfomation } from '../models/auth.model';
+import { Store } from '@ngrx/store';
+import userLogin, { userLogout } from 'src/app/auth/ngrx-store/action';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +14,9 @@ export default class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  private authInfomation: AuthInfomation = {
-    auth: false,
-    username: undefined,
-  };
-
-  authSubject$ = new Subject<AuthInfomation>();
-
   constructor(
     private http: HttpClient,
+    private store: Store,
     private router: Router,
   ) {}
 
@@ -30,42 +24,19 @@ export default class AuthService {
     return Math.random().toString(16).substring(2, 10);
   }
 
-  authSubject(): Observable<AuthInfomation> {
-    return this.authSubject$.asObservable();
-  }
-
   login(userName: string, password?: string): void {
-    this.authInfomation = {
-      auth: true,
-      username: userName,
-    };
+    // eslint-disable-next-line no-console
     console.log(password);
-
+    this.store.dispatch(userLogin({ login: userName }));
     localStorage.setItem('authToken', AuthService.generateToken());
     localStorage.setItem('login', userName);
     this.router.navigate([''], {});
-    this.authSubject$.next(this.authInfomation);
   }
 
   logout(): void {
+    this.store.dispatch(userLogout());
     localStorage.removeItem('authToken');
     localStorage.removeItem('login');
-    this.authInfomation = {
-      auth: false,
-      username: undefined,
-    };
-    this.authSubject$.next(this.authInfomation);
     this.router.navigate(['user/login'], {});
-  }
-
-  isAuthenticated(): AuthInfomation {
-    if (localStorage.getItem('login')) {
-      this.authInfomation = {
-        auth: true,
-        username: localStorage.getItem('login') as string,
-      };
-    }
-
-    return this.authInfomation;
   }
 }
