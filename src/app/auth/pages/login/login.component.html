@@ -1,23 +1,35 @@
 <div class="container">
-  <ng-container *ngIf="!isLogged(); else logged">
-    <form [formGroup]="formLogin" (ngSubmit)="login()">
+  <ng-container *ngIf="!auth; else logged">
+    <form [formGroup]="formLogin" (ngSubmit)="loginFormSubmit()">
       <legend>Login</legend>
       <label for="login" class="required">
         <span>Login</span>
         <input type="text" name="login" id="login" formControlName="login">
-        <span
-        class="validation"
-        *ngIf="controls()['login'].touched && controls()['login'].invalid"
-        >Login is required</span>
+        <div class="validation">
+          <span
+            *ngIf="(login?.dirty || login?.touched) && login?.errors?.['required']"
+          >Please enter a login email</span>
+          <span
+            *ngIf="(login?.dirty || login?.touched) && login?.errors?.['email']"
+          >The login email is invalid</span>
+        </div>
+
       </label>
       <label for="password" class="required">
         <span>Password</span>
         <input type="password" name="password" id="password" formControlName="password">
-        <span
-          *ngIf="controls()['password'].touched && controls()['password'].invalid"
-        >
-        Password is required. Min length 8
-      </span>
+        <div class="validation">
+          <span
+            *ngIf="(password?.touched || password?.dirty)  && password?.errors?.['required']"
+          >Please enter a password</span>
+          <span
+            *ngIf="(password?.touched || password?.dirty)  && password?.errors?.['minlength']"
+          >Min length 8 simbols</span>
+          <span
+            *ngIf="(password?.touched || password?.dirty)  && password?.errors?.['isSecurePassword']"
+          >{{ password?.errors?.['isSecurePassword'] }}</span>
+        </div>
+
       </label>
       <button class="btn" type="submit" [disabled]="formLogin.invalid">Submit</button>
   </form>

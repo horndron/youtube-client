@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import userLogin, { userLogout } from 'src/app/auth/ngrx-store/action';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +14,9 @@ export default class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  isAuth = false;
-
-  authSubject$ = new Subject<string>();
-
   constructor(
     private http: HttpClient,
+    private store: Store,
     private router: Router,
   ) {}
 
@@ -26,32 +24,19 @@ export default class AuthService {
     return Math.random().toString(16).substring(2, 10);
   }
 
-  login(username: string, password?: string): void {
-    console.log('login', username);
-    console.log('password', password);
-
-    // this.http.post<void>(this.url, { username, password }, this.httpOptions)
-    //   .subscribe(() => {
+  login(userName: string, password?: string): void {
+    // eslint-disable-next-line no-console
+    console.log(password);
+    this.store.dispatch(userLogin({ login: userName }));
     localStorage.setItem('authToken', AuthService.generateToken());
-    localStorage.setItem('login', username);
-    this.isAuth = true;
+    localStorage.setItem('login', userName);
     this.router.navigate([''], {});
-    this.authSubject$.next(username);
-    // });
   }
 
   logout(): void {
+    this.store.dispatch(userLogout());
     localStorage.removeItem('authToken');
     localStorage.removeItem('login');
-    this.isAuth = false;
-    this.router.navigate(['/login'], {});
-  }
-
-  isAuthenticated(): boolean {
-    if (localStorage.getItem('authToken')) {
-      this.isAuth = true;
-    }
-
-    return this.isAuth;
+    this.router.navigate(['user/login'], {});
   }
 }

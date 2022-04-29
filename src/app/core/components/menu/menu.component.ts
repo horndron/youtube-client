@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.sass'],
 })
 export default class MenuComponent {
+  @Input() auth: boolean = false;
+
   status = false;
 
   toogleMenu(event: MouseEvent) {

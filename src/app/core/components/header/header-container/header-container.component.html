@@ -4,6 +4,6 @@
     <app-search></app-search>
     <img src="../../../assets/search_settings.svg" alt="" class="sort-filter" (click)="toggleFiltersVisible()">
   </div>
-  <app-login></app-login>
-  <app-menu></app-menu>
+  <app-login-information (isAuth)="isAuthenticated($event)"></app-login-information>
+  <app-menu [auth]="auth"></app-menu>
 </div>

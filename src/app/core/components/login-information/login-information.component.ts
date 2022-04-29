@@ -1,34 +1,38 @@
 import {
-  Component, OnDestroy, OnInit,
+  Component, EventEmitter, OnDestroy, OnInit, Output,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { takeUntil, Subject } from 'rxjs';
+import { userLoginSelector } from 'src/app/auth/ngrx-store/selector';
 import AuthService from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-information',
   templateUrl: './login-information.component.html',
   styleUrls: ['./login-information.component.sass'],
 })
 export default class LoginInformationComponent implements OnInit, OnDestroy {
+  @Output() isAuth: EventEmitter<boolean> = new EventEmitter();
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  userName = '';
+  userName: string | undefined = undefined;
+
+  auth = false;
 
   constructor(
+    private store: Store,
     private authService: AuthService,
   ) {}
 
   ngOnInit() {
-    this.authService.authSubject$
+    this.store.select(userLoginSelector)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((result) => {
-        this.userName = result;
+      .subscribe((login) => {
+        this.userName = login;
+        this.auth = login != null && !!login.length;
+        this.isAuth.emit(this.auth);
       });
-
-    if (localStorage.getItem('login')) {
-      this.authService.isAuth = true;
-      this.userName = localStorage.getItem('login') as string;
-    }
   }
 
   ngOnDestroy(): void {
@@ -38,6 +42,5 @@ export default class LoginInformationComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
-    this.userName = '';
   }
 }

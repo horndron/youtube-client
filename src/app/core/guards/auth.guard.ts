@@ -1,16 +1,18 @@
+/* eslint-disable no-console */
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import AuthService from '../services/auth.service';
+import { Store } from '@ngrx/store';
+import { Observable, of, switchMap } from 'rxjs';
+import { userLoginSelector } from 'src/app/auth/ngrx-store/selector';
 
 @Injectable({
   providedIn: 'root',
 })
 export default class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
+    private store: Store,
     private router: Router,
   ) {}
 
@@ -21,8 +23,9 @@ export default class AuthGuard implements CanActivate {
     console.log('route', route);
     console.log('state', state);
 
-    return this.authService.isAuthenticated()
-      ? true
-      : this.router.navigate(['/login'], {});
+    return this.store.select(userLoginSelector)
+      .pipe(
+        switchMap((login) => (login ? of(true) : this.router.navigate(['user/login'], {}))),
+      );
   }
 }

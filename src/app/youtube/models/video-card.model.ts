@@ -40,7 +40,10 @@ export interface SnippetItem {
 export interface SearchItem {
   kind: string;
   etag: string;
-  id: string;
+  id: {
+    kind : string;
+    videoId: string;
+  }
   snippet: SnippetItem;
-  statistics: Statistics;
+  statistics?: Statistics;
 }
