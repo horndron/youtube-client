@@ -1,0 +1,9 @@
+<img src="{{ card.snippet.thumbnails.medium.url }}" alt="">
+
+<app-video-card-statistic *ngIf="card.statistics" [statistics]="card.statistics"></app-video-card-statistic>
+
+<h2>{{ card.snippet.title }}</h2>
+
+<a routerLink="video/{{card.id.videoId}}" class="btn-blue">More</a>
+<div class="publishing-color" appDatePublishingAgo [publishedAt]="card.snippet.publishedAt"></div>
+
